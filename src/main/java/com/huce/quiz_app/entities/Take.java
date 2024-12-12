@@ -17,7 +17,7 @@ public class Take {
 
     private LocalDateTime createAt;
 
-    @OneToMany(mappedBy="take")
+    @OneToMany(mappedBy="take", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TakeAnswer> takeAnswers;
 
     @ManyToOne
@@ -29,6 +29,30 @@ public class Take {
     private Quiz quiz;
 
     public Take() {
+    }
+
+    public List<TakeAnswer> getTakeAnswers() {
+        return takeAnswers;
+    }
+
+    public void setTakeAnswers(List<TakeAnswer> takeAnswers) {
+        this.takeAnswers = takeAnswers;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Quiz getQuiz() {
+        return quiz;
+    }
+
+    public void setQuiz(Quiz quiz) {
+        this.quiz = quiz;
     }
 
     public Long getId() {

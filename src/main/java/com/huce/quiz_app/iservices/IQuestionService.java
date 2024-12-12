@@ -1,5 +1,6 @@
 package com.huce.quiz_app.iservices;
 
+import com.huce.quiz_app.dto.QuestionDto;
 import com.huce.quiz_app.entities.Question;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
@@ -11,7 +12,7 @@ public interface IQuestionService {
 
     List<Question> getAllQuestion();
 
-    List<Question> getQuestionsForQuiz(Long quizId);
+    List<QuestionDto> getQuestionsForQuiz(Long quizId);
 
     Optional<Question> getQuestionById(Long id);
 

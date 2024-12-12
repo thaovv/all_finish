@@ -36,64 +36,69 @@ public class UserService {
 
     UserRepository userReponsitory;
 
-//    public List<User> getAllUsers() {
-//        return userReponsitory.findAll();
-//    }
-
-    public User createUser(UserCreationRequest request) {
-        User user = new User();
-
-        if (userReponsitory.existsByUsername(request.getUsername())) {
-            throw new AppException(ErrorCode.USER_EXISTED);
-        }
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setFullname(request.getFullname());
-
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
-        return userReponsitory.save(user);
-    }
-
     @NonFinal
     @Value("${jwt.secret}")
     private String SIGNER_KEY;
 
+    // Tạo người dùng mới
+    public User createUser(UserCreationRequest request) {
+        if (userReponsitory.existsByUsername(request.getUsername())) {
+            throw new AppException(ErrorCode.USER_EXISTED);
+        }
 
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setFullname(request.getFullname());
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request){
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
-        var user = userReponsitory.findByUsername(request.getUsername())
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
+        return userReponsitory.save(user);
+    }
+
+    // Xác thực người dùng và tạo token
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+
+        User user = userReponsitory.findByUsername(request.getUsername())
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
-        boolean authenticated = passwordEncoder.matches(request.getPassword(),
-                user.getPassword());
-        if (!authenticated)
+
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
+
+        if (!authenticated) {
             throw new AppException(ErrorCode.UNAUTHENTICATED);
-        var token = generateToken(request.getUsername());
+        }
+
+        // Tạo token với username và userId
+        String token = generateToken(user.getUsername(), user.getId());
+
         return AuthenticationResponse.builder()
                 .token(token)
                 .authenticated(true)
                 .build();
     }
-    private String generateToken(String username) {
+
+    // Tạo JWT token với userId
+    private String generateToken(String username, Long userId) {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
+
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
                 .subject(username)
                 .issuer("devteria.com")
                 .issueTime(new Date())
-                .expirationTime(new Date(
-                        Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()
-                ))
-                .claim("userId", "Custom")
+                .expirationTime(Date.from(Instant.now().plus(1, ChronoUnit.HOURS)))
+                .claim("userId", userId) // Thêm userId vào claim
                 .build();
+
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());
         JWSObject jwsObject = new JWSObject(header, payload);
+
         try {
             jwsObject.sign(new MACSigner(SIGNER_KEY.getBytes()));
             return jwsObject.serialize();
         } catch (JOSEException e) {
             log.error("Cannot create token", e);
-            throw new RuntimeException(e);
+            throw new RuntimeException("Error generating token", e);
         }
     }
 }

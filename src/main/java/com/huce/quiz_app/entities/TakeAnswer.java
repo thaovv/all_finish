@@ -21,8 +21,28 @@ public class TakeAnswer {
     @JoinColumn(name = "questionId", nullable=false)
     private Question question;
 
-    public TakeAnswer(Long id) {
-        this.id = id;
+    public Take getTake() {
+        return take;
+    }
+
+    public void setTake(Take take) {
+        this.take = take;
+    }
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    public Question getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(Question question) {
+        this.question = question;
     }
 
     public Long getId() {
@@ -33,3 +53,4 @@ public class TakeAnswer {
         this.id = id;
     }
 }
+
