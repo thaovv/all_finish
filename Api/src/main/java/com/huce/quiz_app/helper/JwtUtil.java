@@ -6,9 +6,6 @@ import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
-import java.util.Base64;
-
 @Component
 public class JwtUtil {
     @Autowired

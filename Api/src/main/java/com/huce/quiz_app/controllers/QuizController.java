@@ -2,7 +2,6 @@ package com.huce.quiz_app.controllers;
 
 import com.huce.quiz_app.dto.QuizDto;
 import com.huce.quiz_app.dto.ResponseObject;
-import com.huce.quiz_app.entities.Quiz;
 import com.huce.quiz_app.iservices.IQuizService;
 import com.huce.quiz_app.services.JwtService;
 import jakarta.servlet.http.HttpServletRequest;
