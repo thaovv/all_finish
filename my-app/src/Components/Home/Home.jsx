@@ -43,7 +43,7 @@ const Home = () => {
               </Card>
             ))
           ) : (
-            <p>Loading...</p>
+            <p>No Quiz..</p>
           )}
         </div>
       </div>

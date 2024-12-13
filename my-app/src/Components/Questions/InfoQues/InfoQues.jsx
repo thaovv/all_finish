@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router";
 import { getQuizbyId, deleteQuiz } from "../../../Services/UseService";
 import { jwtDecode } from "jwt-decode"; // Adjust to named import for newer versions
 import "./InfoQues.css";
+import LoadingPage from "../../LoadingPage/Loading";
 
 const InfoQues = () => {
   const { quizId } = useParams(); // Get quiz ID from URL
@@ -57,7 +58,7 @@ const InfoQues = () => {
   };
 
   if (!quiz || !quiz.questions) {
-    return <div>Loading...</div>; // Show loading until quiz data is available
+    return <LoadingPage></LoadingPage>; // Show loading until quiz data is available
   }
 
   return (

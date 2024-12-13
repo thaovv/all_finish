@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getQuizbyId, updateQuiz } from "../../../Services/UseService";
-import "./AddQues.css"; // Sử dụng chung CSS với AddQues
+import { jwtDecode } from "jwt-decode"; // Import jwt-decode for decoding JWT
+import "./AddQues.css";
 
 const ModifyQuiz = () => {
   const { quizId } = useParams();
@@ -9,6 +10,16 @@ const ModifyQuiz = () => {
   const [quizTitle, setQuizTitle] = useState("");
   const [questions, setQuestions] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Function to extract userId from the JWT token
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.userId; // Decode the userId from the token
+    }
+    return null; // Return null if no token is available
+  };
 
   useEffect(() => {
     const fetchQuiz = async () => {
@@ -48,7 +59,23 @@ const ModifyQuiz = () => {
 
   const handleRemoveOption = (qIndex, oIndex) => {
     const updatedQuestions = [...questions];
+    const removedOption = updatedQuestions[qIndex].options[oIndex];
+
+    // Remove the option
     updatedQuestions[qIndex].options.splice(oIndex, 1);
+
+    // If the removed option is the correct answer, we need to select a new one
+    if (updatedQuestions[qIndex].correctAnswer === removedOption) {
+      // If there are still options left, reset the correct answer to the first available option
+      if (updatedQuestions[qIndex].options.length > 0) {
+        updatedQuestions[qIndex].correctAnswer =
+          updatedQuestions[qIndex].options[0];
+      } else {
+        // If no options left, clear the correct answer
+        updatedQuestions[qIndex].correctAnswer = "";
+      }
+    }
+
     setQuestions(updatedQuestions);
   };
 
@@ -81,7 +108,7 @@ const ModifyQuiz = () => {
       alert("Quiz title cannot be empty!");
       return;
     }
-  
+
     if (
       questions.some(
         (q) =>
@@ -90,10 +117,18 @@ const ModifyQuiz = () => {
           !q.correctAnswer.trim()
       )
     ) {
-      alert("Please fill in all the fields and select a correct answer for each question!");
+      alert(
+        "Please fill in all the fields and select a correct answer for each question!"
+      );
       return;
     }
-  
+
+    const userId = getUserIdFromToken(); // Retrieve userId from the token
+    if (!userId) {
+      alert("User not logged in!");
+      return;
+    }
+
     const updatedQuiz = {
       title: quizTitle,
       questions: questions.map((q) => ({
@@ -102,22 +137,22 @@ const ModifyQuiz = () => {
           content: option,
           correct: option === q.correctAnswer,
         })),
-        score: 2, // Bạn có thể thay đổi hoặc xóa nếu không cần
+        score: 2, // You can adjust or remove this field as necessary
       })),
+      userId: userId, // Attach the userId to the updated quiz data
     };
-  
-    setIsLoading(true); // Bật trạng thái loading
+
+    setIsLoading(true); // Set loading state
     try {
-      await updateQuiz(quizId, updatedQuiz); // Gửi yêu cầu API
-      navigate("/"); // Điều hướng về Home sau khi lưu thành công
+      await updateQuiz(quizId, updatedQuiz); // Send the updated quiz data
+      navigate("/"); // Redirect to home on successful save
     } catch (error) {
       console.error("Error updating quiz:", error);
       alert("Failed to update quiz. Please try again.");
     } finally {
-      setIsLoading(false); // Tắt trạng thái loading
+      setIsLoading(false); // Set loading state to false
     }
   };
-  
 
   return (
     <div className="new-quiz-container">
@@ -237,6 +272,7 @@ const ModifyQuiz = () => {
                   type="button"
                   className="save-quiz-button"
                   onClick={handleSubmit}
+                  disabled={isLoading} // Disable button when loading
                 >
                   Save Quiz
                 </button>

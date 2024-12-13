@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./AddQues.css";
 import { createQuestion } from "../../../Services/UseService";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 const AddQues = ({ onSubmit }) => {
   const [quizTitle, setQuizTitle] = useState(""); // Quiz Title state
@@ -9,6 +10,16 @@ const AddQues = ({ onSubmit }) => {
     { question: "", options: ["", "", "", ""], correctAnswer: "" },
   ]);
   const navigate = useNavigate();
+
+  // Function to get userId from decoded JWT token
+  const getUserIdFromToken = () => {
+    const token = localStorage.getItem("token"); // Retrieve the token from localStorage
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      return decodedToken.userId; // Get userId from token
+    }
+    return null;
+  };
 
   // Handle changes to the quiz title
   const handleQuizTitleChange = (e) => {
@@ -46,13 +57,23 @@ const AddQues = ({ onSubmit }) => {
   // Remove an option from a question
   const handleRemoveOption = (qIndex, oIndex) => {
     const updatedQuestions = [...questions];
+    const removedOption = updatedQuestions[qIndex].options[oIndex];
+
+    // Remove the option
     updatedQuestions[qIndex].options.splice(oIndex, 1);
-    if (
-      updatedQuestions[qIndex].correctAnswer ===
-      updatedQuestions[qIndex].options[oIndex]
-    ) {
-      updatedQuestions[qIndex].correctAnswer = "";
+
+    // If the removed option is the correct answer, we need to select a new one
+    if (updatedQuestions[qIndex].correctAnswer === removedOption) {
+      // If there are still options left, reset the correct answer to the first available option
+      if (updatedQuestions[qIndex].options.length > 0) {
+        updatedQuestions[qIndex].correctAnswer =
+          updatedQuestions[qIndex].options[0];
+      } else {
+        // If no options left, clear the correct answer
+        updatedQuestions[qIndex].correctAnswer = "";
+      }
     }
+
     setQuestions(updatedQuestions);
   };
 
@@ -72,6 +93,13 @@ const AddQues = ({ onSubmit }) => {
 
   // Handle the save action (submit the form)
   const handleSubmit = async () => {
+    const userId = getUserIdFromToken(); // Get dynamic userId
+
+    if (!userId) {
+      alert("User not logged in.");
+      return;
+    }
+
     // Validate that all fields are filled correctly
     if (
       questions.some(
@@ -95,7 +123,7 @@ const AddQues = ({ onSubmit }) => {
           correct: option === q.correctAnswer,
         })),
       })),
-      userId: 1, // Assuming the user is logged in with ID 1
+      userId: userId, // Dynamic userId from the token
     };
 
     try {
