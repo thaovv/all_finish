@@ -66,7 +66,7 @@ public class QuizService implements IQuizService {
     }
 
     @Override
-    public QuizDto updateQuiz(Long id, QuizDto quizDto) {
+    public QuizDto updateQuiz(Long id, QuizDto quizDto, Long userId) {
         if (quizDto.getId() != null && !quizDto.getId().equals(id)) {
             return null;
         }
@@ -74,7 +74,7 @@ public class QuizService implements IQuizService {
         Optional<Quiz> curentQuiz = quizRepository.findById(id);
         Quiz quiz = quizDtoConverter.convertQuizDtoToQuiz(quizDto);
 
-        if (curentQuiz.isPresent()) {
+        if (curentQuiz.isPresent() && curentQuiz.get().getUser().getId() == userId) {
             Quiz updatedQuiz = curentQuiz.get();
             updatedQuiz.setTitle(quiz.getTitle());
             updatedQuiz.setScore(quiz.getScore());
@@ -146,8 +146,9 @@ public class QuizService implements IQuizService {
     }
 
     @Override
-    public Boolean deleteQuiz(Long id) {
-        if (quizRepository.existsById(id)) {
+    public Boolean deleteQuiz(Long id, Long userId) {
+        Optional<Quiz> quiz = quizRepository.findById(id);
+        if (quiz.isPresent() && quiz.get().getUser().getId() == userId) {
             quizRepository.deleteById(id);
             return true;
         }

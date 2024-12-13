@@ -4,6 +4,8 @@ import com.huce.quiz_app.dto.QuizDto;
 import com.huce.quiz_app.dto.ResponseObject;
 import com.huce.quiz_app.entities.Quiz;
 import com.huce.quiz_app.iservices.IQuizService;
+import com.huce.quiz_app.services.JwtService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -21,16 +24,22 @@ public class QuizController {
     @Autowired
     private IQuizService quizService;
 
+    @Autowired
+    private JwtService jwtService;
 
     @PostMapping("/create-quiz")
-    public ResponseEntity<ResponseObject> createQuiz(@Valid @RequestBody QuizDto quizDto) throws ChangeSetPersister.NotFoundException {
-        QuizDto createdQuiz = quizService.createQuiz(quizDto);
+    public ResponseEntity<ResponseObject> createQuiz(HttpServletRequest request, @Valid @RequestBody QuizDto quizDto) throws ChangeSetPersister.NotFoundException {
+        Long userId = jwtService.getUserId(request);
 
-        if (createdQuiz != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject(200, "Created Successfully", createdQuiz));
+        if (Objects.equals(userId, quizDto.getUserId())) {
+            QuizDto createdQuiz = quizService.createQuiz(quizDto);
+
+            if (createdQuiz != null) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject(201, "Created Successfully", createdQuiz));
+            }
         }
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(201, "Cannot Create Quiz", null));
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject(200, "Cannot Create Quiz", null));
     }
 
     @GetMapping("/get-all-quiz")
@@ -51,8 +60,10 @@ public class QuizController {
     }
 
     @PutMapping("/update-quiz/{id}")
-    public ResponseEntity<ResponseObject> updateQuiz(@PathVariable Long id, @RequestBody QuizDto quizDto) throws ChangeSetPersister.NotFoundException {
-        QuizDto updatedQuiz = quizService.updateQuiz(id, quizDto);
+    public ResponseEntity<ResponseObject> updateQuiz(HttpServletRequest request, @PathVariable Long id, @RequestBody QuizDto quizDto) throws ChangeSetPersister.NotFoundException {
+        Long userId = jwtService.getUserId(request);
+
+        QuizDto updatedQuiz = quizService.updateQuiz(id, quizDto, userId);
 
         if (updatedQuiz != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject(200, "Updated Successfully", updatedQuiz));
@@ -62,15 +73,20 @@ public class QuizController {
     }
 
     @DeleteMapping("/delete-quiz/{id}")
-    public ResponseEntity<ResponseObject> deleteQuiz(@PathVariable Long id) {
-        if (quizService.deleteQuiz(id)) return ResponseEntity.ok(new ResponseObject(200, "Deleted Successfully", null));
+    public ResponseEntity<ResponseObject> deleteQuiz(HttpServletRequest request, @PathVariable Long id) {
+        if (quizService.deleteQuiz(id, jwtService.getUserId(request)))
+            return ResponseEntity.ok(new ResponseObject(200, "Deleted Successfully", null));
 
         return ResponseEntity.ok(new ResponseObject(200, "Cannot Delete Quiz", null));
     }
 
     @GetMapping("/get-quizs/{userId}")
-    public ResponseEntity<ResponseObject> getQuizsForUser(@PathVariable Long userId) {
-        List<QuizDto> allQuizs = quizService.getQuizsForUser(userId);
-        return ResponseEntity.ok(new ResponseObject(200, "", allQuizs));
+    public ResponseEntity<ResponseObject> getQuizsForUser(HttpServletRequest request, @PathVariable Long userId) {
+        Long userIdToken = jwtService.getUserId(request);
+        if (Objects.equals(userId, userIdToken)){
+            List<QuizDto> allQuizs = quizService.getQuizsForUser(userId);
+            return ResponseEntity.ok(new ResponseObject(200, "", allQuizs));
+        }
+        return ResponseEntity.ok(new ResponseObject(200, "Cannot Get Quiz For This User", null));
     }
 }

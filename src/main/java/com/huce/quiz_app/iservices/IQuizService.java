@@ -16,7 +16,7 @@ public interface IQuizService {
 
     Optional<QuizDto> getQuizById(Long id);
 
-    QuizDto updateQuiz(Long id, QuizDto quizDto);
+    QuizDto updateQuiz(Long id, QuizDto quizDto, Long userId);
 
-    Boolean deleteQuiz(Long id);
+    Boolean deleteQuiz(Long id, Long userId);
 }

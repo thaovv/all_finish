@@ -24,9 +24,6 @@ public class Question {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Answer> answers;
 
-    @OneToMany(mappedBy = "question")
-    private List<TakeAnswer> takeAnswers;
-
     public Question() {
     }
 

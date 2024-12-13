@@ -17,9 +17,6 @@ public class Answer {
 
     private Boolean correct;
 
-    @OneToMany(mappedBy="answer")
-    private List<TakeAnswer> takeAnswers;
-
     @ManyToOne
     @JoinColumn(name = "questionId", nullable=false)
     private Question question;
