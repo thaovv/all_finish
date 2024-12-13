@@ -1,0 +1,13 @@
+/* Cách viết đúng cho logo */
+.img.logo {
+  width: 30;
+  height: 30;
+}
+
+/* Sửa lỗi trong class img-title */
+.img-title {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Chú ý viết đúng là border-radius */
+  object-fit: cover; /* Chú ý viết đúng là object-fit */
+}

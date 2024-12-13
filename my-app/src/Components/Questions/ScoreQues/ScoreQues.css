@@ -1,0 +1,87 @@
+.your-result {
+  margin-top: 100px;
+}
+.result-icon {
+  font-size: 48px;
+  color: #ffd43b;
+}
+
+/* Nội dung kết quả */
+.result-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #f2f2f2;
+  width: 600px;
+  height: 400px;
+  margin-left: 400px;
+  background-color: #fff;
+}
+
+/* Điểm số */
+.result-score {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-title {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.score-value {
+  font-size: 22px;
+  text-align: center;
+}
+
+/* Nút Retry */
+.retry-button {
+  padding: 8px 24px;
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.retry-button:hover {
+  background-color: #005a27;
+}
+
+/* Thống kê câu trả lời đúng sai */
+.stat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-icon {
+  color: #16e92e;
+  font-size: 20px;
+}
+.incorrect-icon {
+  color: #e81515;
+  font-size: 20px;
+}
+.correct-answer span,
+.incorrect-answer span {
+  font-size: 14px;
+}
+
+/* Chọn Quiz khác */
+.another-quiz {
+  color: #2d6a4f;
+  margin-top: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 150 px;
+  display: flex;
+}
+
+.another-quiz:hover {
+  text-decoration: underline;
+}

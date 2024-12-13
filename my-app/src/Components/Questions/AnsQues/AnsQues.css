@@ -1,0 +1,162 @@
+.answer-question-form {
+  margin-top: 15px;
+}
+.quiz-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 110px;
+}
+
+.quiz-info {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.icon-container {
+  background-color: #2d6a4f;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+/* Định dạng cho icon */
+.quiz-icon {
+  color: white;
+  font-size: 25px;
+}
+
+/* Định dạng cho quiz details */
+.quiz-details {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Định dạng cho quiz title */
+.quiz-title {
+  font-weight: bold;
+  font-size: 1.25rem; /* tương đương với text-xl */
+}
+
+/* Định dạng cho quiz subtitle */
+.quiz-subtitle {
+  font-weight: lighter;
+  font-size: 0.875rem;
+  padding-bottom: 15px;
+}
+
+/* CSS cho câu hỏi */
+.question-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 300px;
+  margin-left: 300px;
+  margin-top: 15px;
+}
+
+/* CSS cho vòng tròn chứa số câu hỏi */
+.question-number {
+  background-color: #0d733b;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  width: 44px;
+  height: 44px;
+  color: white;
+  font-size: 18px;
+}
+
+/* CSS cho phần các đáp án */
+.answer-options {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-right: 240px;
+}
+
+/* CSS cho các đáp án */
+.answer-option {
+  padding: 12px;
+  margin-left: 350px;
+  width: 60%;
+  border: 1px solid #0d733b;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* .answer-option.current {
+  background-color: #0d733b;
+  color: white;
+} */
+/* CSS cho tất cả các nút */
+.button {
+  padding: 10px 20px;
+  font-size: 15px;
+  color: white;
+  background-color: #0d733b; /* Màu xanh lá */
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hiệu ứng hover */
+.button:hover {
+  background-color: #1e4d3e; /* Màu xanh lá đậm hơn */
+}
+
+/* Nút bị vô hiệu hóa */
+.button:disabled {
+  background-color: #ced4da; /* Màu xám */
+  cursor: not-allowed;
+}
+
+/* Căn chỉnh nút */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 60%; /* Tùy chỉnh chiều rộng của nhóm nút */
+}
+
+/* Định dạng cho phần timer */
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-right: 140px;
+}
+
+/* Định dạng cho icon timer */
+.timer-icon {
+  color: #2d6a4f;
+  font-size: 20px;
+}
+
+/* Định dạng cho text timer */
+.timer-text {
+  font-size: 16px;
+  color: black;
+}
+/* CSS cho trạng thái được chọn */
+.answer-option.selected {
+  background-color: #0d733b;
+  color: white;
+  border: 1px solid #0b5e30;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Hiệu ứng hover cho đáp án */
+.answer-option:hover {
+  background-color: #d1e7dd;
+}

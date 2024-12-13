@@ -1,0 +1,370 @@
+.new-quiz-container {
+  margin: 0 110px;
+  padding-bottom: 30px;
+}
+/* Nav */
+.new-quiz-nav {
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.new-quiz-title-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.new-quiz-title {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.new-quiz-title-highlight {
+  color: #2d6a4f;
+  font-weight: bold;
+}
+
+/* Nút Save */
+.save-button {
+  padding: 8px 16px;
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+/* Hover hiệu ứng cho nút Save */
+.save-button:hover {
+  background-color: #1e4d3e;
+}
+
+/* CSS NewQuizTitle */
+.quiz-name-frame {
+  padding: 12px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #2d6a4f;
+  border-radius: 8px;
+  margin-top: 40px;
+}
+
+.quiz-input-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.quiz-label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.quiz-number {
+  background-color: #007d34;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+}
+
+/* Tên nhãn cho quiz */
+.quiz-name-label {
+  font-weight: bold;
+  margin-left: 10px;
+  font-size: 20px;
+}
+
+/* Input Nhap Quiz Name Moi */
+.quiz-input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding-top: 4px;
+  background: #f2f2f2;
+  width: 600px;
+  font-size: 13px;
+  margin-left: 20px;
+}
+
+/* Gạch chân dưới placeholder */
+.quiz-input::placeholder {
+  color: #999;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  font-size: 16px;
+}
+#quiz-name-icon {
+  margin-left: 540px;
+  background-color: #007d34;
+}
+
+/* CSS New Quiz Question */
+.quiz-question-container {
+  padding: 12px;
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #2d6a4f;
+  border-radius: 8px;
+}
+
+/* Nội dung của quiz question */
+.quiz-question-content {
+  gap: 20 px;
+}
+
+/* Định dạng cho thông tin câu hỏi */
+.question-label-container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Định dạng cho số câu hỏi */
+.question-number {
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  width: 48px;
+  height: 45px;
+}
+
+/* Định dạng cho label câu hỏi */
+.question-label {
+  font-weight: bold;
+  font-size: 18px;
+  padding-left: 10px;
+}
+/* Question Area */
+.question-area-frame {
+  border: 1px solid rgba(45, 106, 79, 0.5);
+  margin-left: 100px;
+  padding: 16px;
+  margin-top: 16px;
+  border-radius: 8px;
+  position: relative;
+  width: 1000px;
+}
+
+/* Icon Remove Question */
+.question-remove-icon {
+  font-size: 20px;
+  color: #e63946;
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+}
+
+.question-remove-icon:hover {
+  color: #ff0000;
+}
+.ques-input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding-top: 4px;
+  background: #f2f2f2;
+  width: 700px;
+  font-size: 13px;
+  margin-left: 20px;
+}
+/* Button Area Container */
+.button-area-container {
+  width: 100%;
+  display: flex;
+  margin-top: 12px; /* Khoảng cách phía trên */
+}
+/* Button Styling */
+.add-question-button {
+  padding: 12px;
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  font-size: 13px;
+  width: 210px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 100px;
+}
+
+/* Hover effect for button */
+.add-question-button:hover {
+  background-color: #1e4d3e;
+}
+.save-quiz-button {
+  padding: 12px;
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  border: none;
+  font-size: 13px;
+  width: 210px;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 590px;
+}
+
+/* Hover effect for button */
+.save-quiz-button:hover {
+  background-color: #1e4d3e;
+}
+/* Choice Container */
+.choice-container {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+/* Label for Choices */
+.choice-label {
+  font-size: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Choice Input Wrapper */
+.choice-input-wrapper {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 16px;
+  width: 100%;
+  background-color: #f9f9f9;
+}
+
+/* Single Choice Input */
+.choice-input {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.choice-input span {
+  font-weight: bold;
+  color: #555;
+}
+
+.choice-input-field {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 13px;
+  width: 80%;
+  outline: none;
+  background-color: white;
+}
+
+/* Placeholder Styling */
+.choice-input-field::placeholder {
+  color: #999;
+}
+
+/* Hover Effect */
+.choice-input-field:hover {
+  border-color: #007d34;
+}
+/* Button Add Choice */
+.add-choice-button {
+  padding: 12px 24px;
+  background-color: #007d34;
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Hiệu ứng */
+}
+
+/* Hover Effect */
+.add-choice-button:hover {
+  background-color: #1e4d3e;
+  transform: scale(1.05);
+}
+
+/* Button Alignment */
+.button-add-choice-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+}
+/* Icon Remove Choice */
+
+/* Hiệu ứng hover cho icon */
+
+.correct-choice-btn {
+  width: auto;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  background-color: #007d34; /* Màu nền ban đầu cho đáp án đúng */
+  color: #fff; /* Màu chữ */
+  border-radius: 5px;
+  font-weight: bold;
+  position: relative;
+  transition: all 0.3s ease; /* Hiệu ứng chuyển màu */
+  font-size: 14px; /* Kích thước chữ */
+  margin: 5px;
+}
+
+/* Khi đáp án đúng được chọn */
+.correct-choice-btn.selected-correct {
+  background-color: #28a745; /* Xanh lá cây cho đáp án đúng */
+  border-color: #218838; /* Đường viền khi đúng */
+}
+
+/* Khi đáp án sai được chọn */
+.correct-choice-btn.selected-incorrect {
+  background-color: #dc3545; /* Đỏ cho đáp án sai */
+  border-color: #c82333; /* Đường viền khi sai */
+}
+
+/* Hiệu ứng khi hover */
+.correct-choice-btn:hover {
+  transform: scale(1.1); /* Phóng to một chút khi hover */
+}
+
+/* Hiệu ứng cho chữ khi hover */
+.correct-choice-btn:hover span {
+  text-decoration: underline; /* Gạch dưới chữ khi hover */
+}
+
+/* Hiệu ứng khi nhấn vào nút */
+.correct-choice-btn:active {
+  transform: scale(0.98); /* Thu nhỏ một chút khi nhấn */
+}
+
+.delete-choice-btn {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  background-color: #ff0000;
+  border-radius: 5px;
+  color: #f2f2f2;
+  position: absolute;
+  right: 40px;
+}
+
+.delete-choice-btn:hover {
+  background-color: #e63946; /* Đổi màu khi hover */
+}
+
+/* Cập nhật CSS cho khi đáp án được chọn */
+.correct-choice-icon.selected {
+  color: white; /* Đổi màu icon khi đáp án đúng được chọn */
+}
