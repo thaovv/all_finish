@@ -55,7 +55,7 @@ const Navbars = () => {
         <Navbar.Brand href={isLoggedIn ? "/home" : "/Login"} className="ms-0">
           <img
             alt=""
-            src="/logo192.png"
+            src="/logo.png"
             width="30"
             height="30"
             className="d-inline-block align-top"
@@ -70,7 +70,7 @@ const Navbars = () => {
           {isLoggedIn ? (
             <>
               <Nav className="me-auto">
-                <Nav.Link href="/AddQues">Question</Nav.Link>
+                <Nav.Link href="/AddQues">Add Quiz</Nav.Link>
               </Nav>
               <Form className="d-flex" inline onSubmit={handleJoinQuiz}>
                 {" "}
